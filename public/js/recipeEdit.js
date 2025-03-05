@@ -197,10 +197,10 @@ function showEditar(recipeId) {
 
       const data = await response.json();
       if (response.ok) {
-        showDialog("Receta actualizada correctamente");
+        showToast("Receta actualizada correctamente");
         cargarRecetas();
       } else {
-        alert("Error: " + data.message);
+        showDialog(data.message);
       }
     } catch (error) {
       console.error("Error al actualizar la receta:", error);
@@ -280,11 +280,11 @@ async function cargarRecetasParaSeleccionar() {
         }
       });
     } else {
-      alert("Error al cargar las recetas.");
+      showDialog("Error al cargar las recetas.");
     }
   } catch (error) {
     console.error("Error al obtener las recetas:", error);
-    alert("Hubo un problema al obtener las recetas.");
+    showDialog("Hubo un problema al obtener las recetas.");
   }
 }
 

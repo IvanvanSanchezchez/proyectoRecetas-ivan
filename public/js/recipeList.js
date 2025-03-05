@@ -165,7 +165,7 @@ async function cargarRecetas(recipes = null) {
           });
 
           if (response.ok) {
-            showDialog("Receta eliminada exitosamente");
+            showToast("Receta eliminada exitosamente");
             cargarRecetas(); // Llamar la función nuevamente para actualizar la lista
           } else {
             showDialog("Error al eliminar la receta");

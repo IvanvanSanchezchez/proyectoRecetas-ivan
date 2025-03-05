@@ -87,7 +87,6 @@ exports.deleteRecipe = async (req, res) => {
   }
 };
 
-
 exports.updateRecipe = async (req, res) => {
   const { recipe_id } = req.params; // Obtener el ID de la receta desde los parámetros de la URL
   const {
@@ -106,6 +105,11 @@ exports.updateRecipe = async (req, res) => {
       return res.status(404).json({ message: "Receta no encontrada." });
     }
 
+    // Validar el nivel de dificultad (debe ser entre 1 y 5)
+    if (difficulty_level !== undefined && (difficulty_level < 1 || difficulty_level > 5)) {
+      return res.status(400).json({ message: "El nivel de dificultad debe ser entre 1 y 5." });
+    }
+
     // Actualizar los datos de la receta SOLO si existen en req.body
     recipe.recipe_name = recipe_name ?? recipe.recipe_name;
     recipe.cuisine_type = cuisine_type ?? recipe.cuisine_type;
@@ -120,7 +124,6 @@ exports.updateRecipe = async (req, res) => {
       .status(200)
       .json({ message: "Receta actualizada correctamente", recipe });
   } catch (error) {
-    console.error("Error al actualizar la receta:", error);
     res.status(500).json({ message: "Error en el servidor" });
   }
 };
