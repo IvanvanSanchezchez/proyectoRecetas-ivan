@@ -38,6 +38,7 @@ function showEditar(recipeId) {
   nameInput.setAttribute("type", "text");
   nameInput.setAttribute("id", "recipe_name");
   nameInput.setAttribute("name", "recipe_name");
+  nameInput.setAttribute("placeholder", "Ejemplo: Pasta Carbonara");
   nameInput.required = true;
   nameInput.classList.add(
     "w-full",
@@ -63,6 +64,7 @@ function showEditar(recipeId) {
   typeInput.setAttribute("type", "text");
   typeInput.setAttribute("id", "cuisine_type");
   typeInput.setAttribute("name", "cuisine_type");
+  typeInput.setAttribute("placeholder", "Ejemplo: Italiana, Mexicana...");
   typeInput.classList.add(
     "w-full",
     "px-4",
@@ -87,6 +89,7 @@ function showEditar(recipeId) {
   difficultyInput.setAttribute("type", "number");
   difficultyInput.setAttribute("id", "difficulty_level");
   difficultyInput.setAttribute("name", "difficulty_level");
+  difficultyInput.setAttribute("placeholder", "Ejemplo: 3");
   difficultyInput.setAttribute("min", "1");
   difficultyInput.required = true;
   difficultyInput.setAttribute("max", "5");
@@ -115,6 +118,7 @@ function showEditar(recipeId) {
   timeInput.setAttribute("type", "number");
   timeInput.setAttribute("id", "preparation_time");
   timeInput.setAttribute("name", "preparation_time");
+  timeInput.setAttribute("placeholder", "Ejemplo: 30");
   timeInput.classList.add(
     "w-full",
     "px-4",
@@ -140,6 +144,10 @@ function showEditar(recipeId) {
   stepsTextarea.setAttribute("name", "steps");
   stepsTextarea.setAttribute("rows", "4");
   stepsTextarea.setAttribute("cols", "50");
+  stepsTextarea.setAttribute(
+    "placeholder",
+    "Ejemplo: 1. Cocinar la pasta. 2. Preparar la salsa..."
+  );
   stepsTextarea.required = true;
   stepsTextarea.classList.add(
     "w-full",

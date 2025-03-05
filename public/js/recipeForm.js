@@ -35,6 +35,7 @@ function showAgregar() {
   nameInput.setAttribute("type", "text");
   nameInput.setAttribute("id", "recipe_name");
   nameInput.setAttribute("name", "recipe_name");
+  nameInput.setAttribute("placeholder", "Ejemplo: Pasta Carbonara");
   nameInput.required = true;
   nameInput.classList.add(
     "w-full",
@@ -60,6 +61,7 @@ function showAgregar() {
   typeInput.setAttribute("type", "text");
   typeInput.setAttribute("id", "cuisine_type");
   typeInput.setAttribute("name", "cuisine_type");
+  typeInput.setAttribute("placeholder", "Ejemplo: Italiana, Mexicana...");
   typeInput.classList.add(
     "w-full",
     "px-4",
@@ -86,6 +88,7 @@ function showAgregar() {
   difficultyInput.setAttribute("name", "difficulty_level");
   difficultyInput.setAttribute("min", "1");
   difficultyInput.setAttribute("max", "5");
+  difficultyInput.setAttribute("placeholder", "Ejemplo: 3");
   difficultyInput.required = true;
   difficultyInput.classList.add(
     "w-full",
@@ -111,6 +114,7 @@ function showAgregar() {
   timeInput.setAttribute("type", "number");
   timeInput.setAttribute("id", "preparation_time");
   timeInput.setAttribute("name", "preparation_time");
+  timeInput.setAttribute("placeholder", "Ejemplo: 30");
   timeInput.classList.add(
     "w-full",
     "px-4",
@@ -136,6 +140,10 @@ function showAgregar() {
   stepsTextarea.setAttribute("name", "steps");
   stepsTextarea.setAttribute("rows", "4");
   stepsTextarea.setAttribute("cols", "50");
+  stepsTextarea.setAttribute(
+    "placeholder",
+    "Ejemplo: 1. Cocinar la pasta. 2. Preparar la salsa..."
+  );
   stepsTextarea.required = true;
   stepsTextarea.classList.add(
     "w-full",
@@ -204,11 +212,11 @@ function showAgregar() {
     }
 
     const recipeData = {
-      recipe_name: document.getElementById("recipe_name").value,
-      cuisine_type: document.getElementById("cuisine_type").value,
-      difficulty_level: document.getElementById("difficulty_level").value,
-      preparation_time: document.getElementById("preparation_time").value,
-      steps: document.getElementById("steps").value,
+      recipe_name: nameInput.value,
+      cuisine_type: typeInput.value,
+      difficulty_level: difficultyInput.value,
+      preparation_time: timeInput.value,
+      steps: stepsTextarea.value,
     };
 
     // Fetch para añadir la receta
@@ -224,7 +232,7 @@ function showAgregar() {
       const data = await response.json();
 
       if (data.success) {
-        limpiarCampos();
+        addRecipeForm.reset();
         cargarRecetas();
         showDialog("Receta agregada exitosamente");
       } else {
@@ -237,10 +245,11 @@ function showAgregar() {
   });
 
   // Configurar el botón "Limpiar campos"
-  document.getElementById("clearCrearButton").addEventListener("click", () => {
+  clearButton.addEventListener("click", () => {
     addRecipeForm.reset();
   });
 }
+
 
 document.getElementById("btnAgregar").addEventListener("click", showAgregar);
 

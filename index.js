@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3001;
 // Configurar express-session
 app.use(
   session({
-    secret: "123",
+    secret: "d57b68c3a1b96f7b4e2a27c9b8e5f29c27e573f5e30c47fb6d23cbb27d5c1583",
     resave: false,
     saveUninitialized: true,
   })
