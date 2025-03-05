@@ -1,4 +1,8 @@
 const Recipe = require("../models/recipe");
+// Require
+
+
+// Crear Receta
 exports.postRecipe = async (req, res) => {
   const {
     recipe_name,
@@ -9,9 +13,12 @@ exports.postRecipe = async (req, res) => {
   } = req.body;
 
   try {
+    // Vemos si ya hay una receta con ese nombre
     const existingRecipe = await Recipe.findOne({ where: { recipe_name } });
+
+    // Segun la respuesta el front hara una cosa diferente
     if (existingRecipe) {
-      // Responde con código 200, pero con un mensaje de error
+     
       return res.status(200).json({ 
         success: false, 
         message: "Esta receta ya está registrada." 
@@ -26,7 +33,7 @@ exports.postRecipe = async (req, res) => {
       steps,
     });
 
-    // Responde con código 200, pero con un mensaje de éxito
+   
     return res.status(200).json({ 
       success: true, 
       message: "Receta agregada exitosamente", 
@@ -34,11 +41,13 @@ exports.postRecipe = async (req, res) => {
     });
   } catch (error) {
     console.error("Error en el registro:", error);
-    // Si hay un error en el servidor, también responde con 200, pero con el error
+    
     res.status(200).json({ success: false, message: "Error en el servidor" });
   }
 };
 
+
+// Devolvemos todas las recetas
 exports.getRecipes = async (req, res) => {
   try {
     const recipes = await Recipe.findAll();
@@ -49,6 +58,8 @@ exports.getRecipes = async (req, res) => {
   }
 };
 
+
+// Dvevolvemos una sola receta
 exports.getRecipe = async (req, res) => {
   const { recipe_id } = req.params;
 
@@ -66,6 +77,8 @@ exports.getRecipe = async (req, res) => {
   }
 };
 
+
+// Borramos una receta
 exports.deleteRecipe = async (req, res) => {
   const { recipe_id } = req.params;
 
@@ -87,15 +100,17 @@ exports.deleteRecipe = async (req, res) => {
   }
 };
 
+
+// Actualizar una receta
 exports.updateRecipe = async (req, res) => {
-  const { recipe_id } = req.params; // Obtener el ID de la receta desde los parámetros de la URL
+  const { recipe_id } = req.params; 
   const {
     recipe_name,
     cuisine_type,
     difficulty_level,
     preparation_time,
     steps,
-  } = req.body; // Obtener los datos actualizados desde el cuerpo de la solicitud
+  } = req.body; 
 
   try {
     // Buscar la receta por ID

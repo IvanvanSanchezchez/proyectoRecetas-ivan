@@ -1,13 +1,16 @@
+// Orden por defecto para ordenar
 let currentSort = {
-  columnIndex: -1,  // No hay columna ordenada inicialmente
-  isAscending: true, // Orden ascendente por defecto
+  columnIndex: -1,
+  isAscending: true,
 };
 
+// Funcion para cargar la tabla
 async function cargarRecetas(recipes = null) {
   try {
-    if (!recipes) {  // Si no se pasan recetas, hacer la petición al servidor
+    if (!recipes) {
+      // Si no se pasan recetas, hacer la petición al servidor
       const response = await fetch("/recipe/list");
-      recipes = await response.json(); // Convertir la respuesta en JSON
+      recipes = await response.json();
     }
 
     recipes = filtrarRecetas(recipes); // Filtrar las recetas según los filtros de búsqueda
@@ -22,14 +25,14 @@ async function cargarRecetas(recipes = null) {
     const table = document.createElement("table");
 
     table.classList.add(
-      "border-collapse", 
-      "table-auto", 
-      "text-left", 
-      "border", 
-      "border-gray-300", 
-      "divide-y", 
-      "divide-gray-200", 
-      "min-w-full", 
+      "border-collapse",
+      "table-auto",
+      "text-left",
+      "border",
+      "border-gray-300",
+      "divide-y",
+      "divide-gray-200",
+      "min-w-full",
       "bg-white",
       "min-w-full",
       "sm:text-sm"
@@ -62,7 +65,7 @@ async function cargarRecetas(recipes = null) {
         "bg-gray-100",
         "border-b",
         "border-gray-300"
-      ); 
+      );
 
       th.addEventListener("click", () => {
         ordenarTabla(index, recipes);
@@ -132,17 +135,23 @@ async function cargarRecetas(recipes = null) {
         "py-4",
         "text-sm",
         "text-gray-500",
-        "break-words"  // Permite que el texto se divida en varias líneas
+        "break-words"
       );
-      tdSteps.style.maxHeight = "4.5rem"; // Limita la altura de la celda
-      tdSteps.style.overflow = "hidden";  // Oculta el texto que excede la altura
-      tdSteps.style.textOverflow = "ellipsis"; // Muestra los puntos suspensivos al final
+      tdSteps.style.maxHeight = "4.5rem";
+      tdSteps.style.overflow = "hidden";
+      tdSteps.style.textOverflow = "ellipsis";
       row.appendChild(tdSteps);
 
       // Crear la celda de acciones con botones de eliminar y modificar
       const tdActions = document.createElement("td");
-      tdActions.classList.add("px-6", "py-4", "whitespace-nowrap", "flex", "flex-col", "gap-2"); // Flexbox en columna, espacio entre los botones
-
+      tdActions.classList.add(
+        "px-6",
+        "py-4",
+        "whitespace-nowrap",
+        "flex",
+        "flex-col",
+        "gap-2"
+      );
 
       // Crear el botón de eliminar
       const deleteButton = document.createElement("button");
@@ -150,7 +159,7 @@ async function cargarRecetas(recipes = null) {
       deleteButton.classList.add(
         "bg-red-500",
         "text-white",
-        "hover:bg-red-700",
+        "hover:bg-red-600",
         "px-4",
         "py-2",
         "rounded",
@@ -158,6 +167,8 @@ async function cargarRecetas(recipes = null) {
         "focus:ring-2",
         "focus:ring-red-400"
       );
+
+      // Logica de borrar
       deleteButton.addEventListener("click", async () => {
         try {
           const response = await fetch(`/recipe/delete/${recipe.recipe_id}`, {
@@ -176,15 +187,13 @@ async function cargarRecetas(recipes = null) {
         }
       });
 
-      
-
       // Crear el botón de modificar
       const editButton = document.createElement("button");
       editButton.textContent = "Modificar";
       editButton.classList.add(
         "bg-yellow-400",
         "text-white",
-        "hover:bg-yellow-700",
+        "hover:bg-yellow-500",
         "px-4",
         "py-2",
         "rounded",
@@ -192,10 +201,12 @@ async function cargarRecetas(recipes = null) {
         "focus:ring-2",
         "focus:ring-yellow-300"
       );
-      editButton.onclick = function () {
+
+      // Funcion para editar directamente esa receta
+      editButton.addEventListener("click", function () {
         showEditar(recipe.recipe_id);
-      };
-     
+      });
+
       tdActions.appendChild(editButton);
       tdActions.appendChild(deleteButton);
       row.appendChild(tdActions);
@@ -212,6 +223,7 @@ async function cargarRecetas(recipes = null) {
   }
 }
 
+// Funcion para resetear los filtros de busqueda
 document.getElementById("resetButton").addEventListener("click", () => {
   document.getElementById("search_name").value = "";
   document.getElementById("search_type").value = "";
@@ -220,6 +232,8 @@ document.getElementById("resetButton").addEventListener("click", () => {
   cargarRecetas();
 });
 
+
+// Funcion para filtrar la busqueda
 function filtrarRecetas(recipes) {
   const nameFilter = document.getElementById("search_name").value.toLowerCase();
   const typeFilter = document.getElementById("search_type").value.toLowerCase();
@@ -242,6 +256,7 @@ function filtrarRecetas(recipes) {
   return recipes_ordenadas;
 }
 
+// Boton para buscar
 document.getElementById("searchButton").addEventListener("click", () => {
   cargarRecetas();
 });
@@ -257,7 +272,7 @@ function ordenarTabla(index, recipes) {
     currentSort.isAscending = true;
   }
 
-  // Ordenamos las recetas según el índice de la columna y el tipo de datos
+  // Ordenamos las recetas segun el índice de la columna y el tipo de datos
   const sortedRecipes = recipes.sort((a, b) => {
     let valA, valB;
 
@@ -290,8 +305,9 @@ function ordenarTabla(index, recipes) {
   cargarTablaOrdenada(sortedRecipes);
 }
 
+
 function cargarTablaOrdenada(sortedRecipes) {
   cargarRecetas(sortedRecipes);
 }
 
-cargarRecetas(); // Llama la función para cargar las recetas inicialmente
+cargarRecetas(); // Se tiene que mostrar inicialmente

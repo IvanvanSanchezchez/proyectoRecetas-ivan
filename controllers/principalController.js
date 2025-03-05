@@ -1,5 +1,7 @@
 const path = require("path");
+// Require
 
+// Devolver View
 exports.getView = (req, res) => {
   if (req.session.user) {
     res.sendFile(path.join(__dirname, "../views/principal.html"));
@@ -8,7 +10,7 @@ exports.getView = (req, res) => {
   }
 };
 
-
+// Devolver View Index
 exports.getIndex = (req, res) => {
   if (req.session.user) {
     res.sendFile(path.join(__dirname, "../views/index.html"));

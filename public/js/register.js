@@ -13,6 +13,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
       return; 
   }
 
+  // Fetch para crear el usuario
   try {
       const response = await fetch("/registro", {
           method: "POST",
@@ -40,6 +41,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
 
 
 function validateForm(email, username, password) {
+
   // Validación de correo electrónico
   const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   if (!emailPattern.test(email)) {
@@ -51,11 +53,11 @@ function validateForm(email, username, password) {
       return "El nombre de usuario debe tener al menos 3 caracteres.";
   }
 
-  // Validación de la contraseña (mínimo 6 caracteres)
+  // Validación de la contraseña (mínimo 6 caracteres)  
   if (password.length < 6) {
       return "La contraseña debe tener al menos 6 caracteres.";
   }
 
-  // Si todo está bien, retorna null (sin errores)
+
   return null;
 }

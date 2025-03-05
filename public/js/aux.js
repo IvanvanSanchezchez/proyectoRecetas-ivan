@@ -1,3 +1,7 @@
+// Funciones generales
+
+
+// Crear Dialog
 function showDialog(message) {
   // Verificar si ya existe un diálogo en el documento y eliminarlo
   const existingDialog = document.getElementById("customDialog");
@@ -5,53 +9,65 @@ function showDialog(message) {
     existingDialog.remove();
   }
 
-  // Crear el contenedor del fondo (overlay)
+  // Crear el contenedor del fondo
   const dialogBackdrop = document.createElement("div");
   dialogBackdrop.id = "customDialogBackdrop";
   dialogBackdrop.classList.add(
-    "fixed", 
-    "top-0", 
-    "left-0", 
-    "w-full", 
-    "h-full", 
-    "bg-gray-800", 
-    "bg-opacity-50", 
-    "flex", 
-    "items-center", 
-    "justify-center", 
+    "fixed",
+    "top-0",
+    "left-0",
+    "w-full",
+    "h-full",
+    "bg-gray-800",
+    "bg-opacity-50",
+    "flex",
+    "items-center",
+    "justify-center",
     "z-50"
   );
 
   // Crear el cuadro de diálogo
   const dialogBox = document.createElement("div");
-  dialogBox.classList.add("bg-white", "p-6", "rounded-lg", "shadow-lg", "w-96", "text-center");
+  dialogBox.classList.add(
+    "bg-white",
+    "p-6",
+    "rounded-lg",
+    "shadow-lg",
+    "w-96",
+    "text-center"
+  );
 
-  // Agregar el mensaje al cuadro de diálogo
+  // Agregar el mensaje al cuadro de dialogo
   const messageText = document.createElement("p");
-  messageText.classList.add("text-lg", "font-semibold", "text-gray-700", "mb-4");
+  messageText.classList.add(
+    "text-lg",
+    "font-semibold",
+    "text-gray-700",
+    "mb-4"
+  );
   messageText.textContent = message;
 
-  // Crear el botón de cerrar
+  // Crear el boton de cerrar
   const closeButton = document.createElement("button");
   closeButton.id = "closeDialog";
   closeButton.classList.add(
-    "bg-blue-500", 
-    "text-white", 
-    "px-6", 
-    "py-2", 
-    "rounded-md", 
-    "hover:bg-blue-600", 
-    "focus:outline-none", 
-    "focus:ring-2", 
+    "bg-blue-500",
+    "text-white",
+    "px-6",
+    "py-2",
+    "rounded-md",
+    "hover:bg-blue-600",
+    "focus:outline-none",
+    "focus:ring-2",
     "focus:ring-blue-300"
   );
   closeButton.textContent = "Cerrar";
 
-  // Agregar el mensaje y el botón al cuadro de diálogo
+  // Agregar el mensaje y el boton al cuadro de dialogo
   dialogBox.appendChild(messageText);
   dialogBox.appendChild(closeButton);
 
-  // Agregar el cuadro de diálogo al contenedor del fondo
+  // Agregar el cuadro de dialogo al contenedor del fondo
   dialogBackdrop.appendChild(dialogBox);
 
   // Agregar el contenedor al body
@@ -62,9 +78,11 @@ function showDialog(message) {
 
   // Evento para cerrar el diálogo cuando se hace clic en el botón
   closeButton.addEventListener("click", () => {
-    dialogBackdrop.remove(); // Eliminar el diálogo del DOM después de cerrarlo
+    dialogBackdrop.remove();
   });
 }
+
+// Crear Toast
 function showToast(messaje) {
   // Crear el contenedor del toast
   const toast = document.createElement("div");
@@ -72,15 +90,15 @@ function showToast(messaje) {
     "fixed",
     "bottom-5",
     "right-5",
-    "bg-green-500", // Puedes cambiar el color de fondo según el tipo de mensaje
+    "bg-green-500",
     "text-white",
     "p-4",
     "rounded-lg",
     "shadow-lg",
     "w-80",
     "text-center",
-    "transition-opacity", // Para la animación de desaparecer
-    "opacity-0" // Inicialmente invisible
+    "transition-opacity",
+    "opacity-0"
   );
 
   // Crear el mensaje del toast
@@ -112,19 +130,75 @@ function showToast(messaje) {
   }, 3000);
 }
 
+// Mostrar errores debajo de un campo
+function mostrarError(campo, mensaje) {
+  // Obtener el input
+  const inputField = document.getElementById(campo);
 
-function validarCrearReceta() {
+  // Revisar si ya hay un mensaje de error existente y eliminarlo
+  const existingError = inputField.nextElementSibling;
+  if (existingError && existingError.classList.contains("error-message")) {
+    existingError.remove();
+  }
+
+  // Crear el div del mensaje de error
+  const errorDiv = document.createElement("div");
+  errorDiv.classList.add(
+    "error-message",
+    "text-red-500",
+    "text-sm",
+    "mt-1",
+    "font-medium",
+    "italic"
+  );
+  errorDiv.textContent = mensaje;
+
+  // Insertar el mensaje despues del input
+  inputField.after(errorDiv);
+}
+
+// Limpiar los mensajes de error
+function limpiarErrores() {
+  document
+    .querySelectorAll(".error-message")
+    .forEach((error) => error.remove());
+}
+
+// Limpiar el div de content
+function clearContent() {
+  const contentContainer = document.getElementById("content");
+
+  // Eliminar todos los elementos hijos dentro de #content
+  while (contentContainer.firstChild) {
+    contentContainer.removeChild(contentContainer.firstChild);
+  }
+}
+
+// Limpiar campos de editar y de agregar
+function limpiarCampos() {
+  // Limpiar los valores de los campos del formulario
+  document.getElementById("recipe_name").value = "";
+  document.getElementById("cuisine_type").value = "";
+  document.getElementById("difficulty_level").value = "";
+  document.getElementById("preparation_time").value = "";
+  document.getElementById("steps").value = "";
+}
+
+// Validar los valores de receta
+function validarReceta() {
   limpiarErrores();
 
   let valido = true;
 
-  
   let recipe_name = document.getElementById("recipe_name").value.trim();
   let cuisine_type = document.getElementById("cuisine_type").value.trim();
-  let  difficulty_level = document.getElementById("difficulty_level").value.trim();
-  let preparation_time = document.getElementById("preparation_time").value.trim();
+  let difficulty_level = document
+    .getElementById("difficulty_level")
+    .value.trim();
+  let preparation_time = document
+    .getElementById("preparation_time")
+    .value.trim();
   let steps = document.getElementById("steps").value.trim();
- 
 
   const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;
 
@@ -167,47 +241,3 @@ function validarCrearReceta() {
 
   return valido;
 }
-function mostrarError(campo, mensaje) {
-  // Obtener el input
-  const inputField = document.getElementById(campo);
-
-  // Revisar si ya hay un mensaje de error existente y eliminarlo
-  const existingError = inputField.nextElementSibling;
-  if (existingError && existingError.classList.contains("error-message")) {
-    existingError.remove();
-  }
-
-  // Crear el div del mensaje de error
-  const errorDiv = document.createElement("div");
-  errorDiv.classList.add(
-    "error-message",
-    "text-red-500", // Color rojo para el mensaje de error
-    "text-sm", // Texto pequeño
-    "mt-1", // Margen superior pequeño
-    "font-medium", // Fuente en negrita
-    "italic" // Hacer el texto en cursiva para destacar el error
-  );
-  errorDiv.textContent = mensaje;
-
-  // Insertar el mensaje después del input
-  inputField.after(errorDiv);
- 
-}
-
-
-function limpiarErrores() {
-  document
-    .querySelectorAll(".error-message")
-    .forEach((error) => error.remove());
-}
-
-function clearContent() {
-  const contentContainer = document.getElementById("content");
-  
-  // Eliminar todos los elementos hijos dentro de #content
-  while (contentContainer.firstChild) {
-    contentContainer.removeChild(contentContainer.firstChild);
-  }
-}
-
-

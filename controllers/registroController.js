@@ -2,6 +2,10 @@ const path = require("path");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 
+// Require
+
+
+// Devolver View
 exports.getView = (req, res) => {
   if (req.session.user) {
     return res.redirect("/principal");
@@ -10,6 +14,8 @@ exports.getView = (req, res) => {
   }
 };
 
+
+// Crear registro
 exports.postRegistro = async (req, res) => {
   const { username, email, password } = req.body;
 

@@ -13,6 +13,7 @@ document
       return;
     }
 
+    // Fetch para logearnos
     try {
       const response = await fetch("/login", {
         method: "POST",

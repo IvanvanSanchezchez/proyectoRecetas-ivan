@@ -7,6 +7,8 @@ const registroRoutes = require("./routes/registroRoute");
 const recipeRoutes = require("./routes/recipeRoute");
 const session = require("express-session");
 
+// Require
+
 const PORT = process.env.PORT || 3001;
 
 // Configurar express-session
@@ -33,13 +35,12 @@ app.get('/index', (req, res) => {
 
 app.post('/logout', (req, res) => {
   req.session.destroy((err) => {
-   
-    res.clearCookie('connect.sid'); // Borrar la cookie de sesión
-    res.redirect('/'); // Redirigir a la página de inicio o a donde prefieras
+    res.clearCookie('connect.sid'); // Borrar la sesion
+    res.redirect('/'); 
   });
 });
 
-// Middleware para manejar rutas no encontradas (404)
+// Middleware para manejar rutas no encontradas 
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });

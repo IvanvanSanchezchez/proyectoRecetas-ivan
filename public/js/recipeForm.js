@@ -1,19 +1,5 @@
-function limpiarCrearCampos() {
-  // Limpiar los valores de los campos del formulario
-  document.getElementById("recipe_name").value = "";
-  document.getElementById("cuisine_type").value = "";
-  document.getElementById("difficulty_level").value = "";
-  document.getElementById("preparation_time").value = "";
-  document.getElementById("steps").value = "";
-}
-
 function showAgregar() {
   clearContent();
-  // Eliminar cualquier formulario existente antes de crear uno nuevo
-  const existingForm = document.getElementById("recipeForm");
-  if (existingForm) {
-    existingForm.remove();
-  }
 
   // Crear un nuevo formulario dinámicamente
   const addRecipeForm = document.createElement("form");
@@ -25,20 +11,25 @@ function showAgregar() {
     "mx-auto",
     "bg-white",
     "rounded-lg",
-    "shadow-md"
-  ); // Estilos del formulario
+    "shadow-md",
+    "opacity-0",
+    "transform",
+    "translate-y-10",
+    "transition-all",
+    "duration-500"
+  );
 
   // Crear el título
   const title = document.createElement("h2");
   title.textContent = "Agregar Receta";
-  title.classList.add("text-2xl", "font-semibold", "text-center", "mb-4"); // Estilos del título
+  title.classList.add("text-2xl", "font-semibold", "text-center", "mb-4");
   addRecipeForm.appendChild(title);
 
   // Crear el campo de nombre de receta
   const nameLabel = document.createElement("label");
   nameLabel.setAttribute("for", "recipe_name");
   nameLabel.textContent = "Nombre de la receta:";
-  nameLabel.classList.add("block", "font-medium", "text-gray-700"); // Estilos de la etiqueta
+  nameLabel.classList.add("block", "font-medium", "text-gray-700");
   addRecipeForm.appendChild(nameLabel);
   const nameInput = document.createElement("input");
   nameInput.setAttribute("type", "text");
@@ -56,7 +47,7 @@ function showAgregar() {
     "focus:ring-2",
     "focus:ring-blue-400",
     "focus:border-blue-400"
-  ); // Estilos del input
+  );
   addRecipeForm.appendChild(nameInput);
 
   // Crear el campo de tipo de cocina
@@ -69,7 +60,6 @@ function showAgregar() {
   typeInput.setAttribute("type", "text");
   typeInput.setAttribute("id", "cuisine_type");
   typeInput.setAttribute("name", "cuisine_type");
-
   typeInput.classList.add(
     "w-full",
     "px-4",
@@ -176,7 +166,7 @@ function showAgregar() {
     "focus:outline-none",
     "focus:ring-2",
     "focus:ring-gray-500"
-  ); // Estilos del botón limpiar
+  );
   addRecipeForm.appendChild(clearButton);
 
   const submitButton = document.createElement("button");
@@ -192,18 +182,24 @@ function showAgregar() {
     "focus:outline-none",
     "focus:ring-2",
     "focus:ring-blue-400"
-  ); // Estilos del botón de envío
+  );
   addRecipeForm.appendChild(submitButton);
 
   // Agregar el formulario al contenedor del contenido
   const contentContainer = document.getElementById("content");
   contentContainer.appendChild(addRecipeForm);
 
+  // Aplicar la animación después de que el formulario se haya añadido al DOM
+  setTimeout(() => {
+    addRecipeForm.classList.remove("opacity-0", "translate-y-10");
+    addRecipeForm.classList.add("opacity-100", "translate-y-0");
+  }, 100);
+
   // Configurar el evento de submit
   addRecipeForm.addEventListener("submit", async (event) => {
-    event.preventDefault(); // Prevenir el comportamiento por defecto
+    event.preventDefault();
 
-    if (!validarCrearReceta()) {
+    if (!validarReceta()) {
       return;
     }
 
@@ -214,6 +210,8 @@ function showAgregar() {
       preparation_time: document.getElementById("preparation_time").value,
       steps: document.getElementById("steps").value,
     };
+
+    // Fetch para añadir la receta
     try {
       const response = await fetch("/recipe/create", {
         method: "POST",
@@ -222,23 +220,20 @@ function showAgregar() {
         },
         body: JSON.stringify(recipeData),
       });
-    
+
       const data = await response.json();
-    
+
       if (data.success) {
-        // Si la respuesta fue exitosa, limpia los campos y recarga las recetas
-        limpiarCrearCampos();
+        limpiarCampos();
         cargarRecetas();
         showDialog("Receta agregada exitosamente");
       } else {
-        // Si la respuesta no fue exitosa, muestra el mensaje de error
-        showDialog(data.message); // Mostrar el mensaje de error, como "Esta receta ya está registrada."
+        showDialog(data.message);
       }
     } catch (error) {
       console.error("Error al enviar la receta:", error);
       showDialog("Hubo un problema con la solicitud.");
     }
-    
   });
 
   // Configurar el botón "Limpiar campos"
@@ -249,19 +244,20 @@ function showAgregar() {
 
 document.getElementById("btnAgregar").addEventListener("click", showAgregar);
 
+
+// Boton para cerrar sesion
 document
   .getElementById("logoutButton")
   .addEventListener("click", async function () {
     try {
       const response = await fetch("/logout", {
-        method: "POST", // Hacer una solicitud POST para cerrar la sesión
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
       });
 
       if (response.ok) {
-        // Redirigir a la página de inicio o donde quieras después de cerrar sesión
         window.location.href = "/login";
       } else {
         console.error("Error al cerrar sesión.");
