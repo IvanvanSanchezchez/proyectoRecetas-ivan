@@ -115,7 +115,9 @@ function showEditar(recipeId) {
   difficultyInput.setAttribute("id", "edit_difficulty_level");
   difficultyInput.setAttribute("name", "difficulty_level");
   difficultyInput.setAttribute("min", "1");
+  difficultyInput.required = true;
   difficultyInput.setAttribute("max", "5");
+  
   difficultyInput.classList.add("w-full", "px-4", "py-2", "border", "border-gray-300", "rounded-md", "focus:outline-none", "focus:ring-2", "focus:ring-blue-400", "focus:border-blue-400");
   editRecipeForm.appendChild(difficultyInput);
 
@@ -143,6 +145,7 @@ function showEditar(recipeId) {
   stepsTextarea.setAttribute("name", "steps");
   stepsTextarea.setAttribute("rows", "4");
   stepsTextarea.setAttribute("cols", "50");
+  stepsTextarea.required = true;
   stepsTextarea.classList.add("w-full", "px-4", "py-2", "border", "border-gray-300", "rounded-md", "focus:outline-none", "focus:ring-2", "focus:ring-blue-400", "focus:border-blue-400");
   editRecipeForm.appendChild(stepsTextarea);
 

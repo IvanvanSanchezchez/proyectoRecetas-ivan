@@ -24,19 +24,24 @@ app.use(express.json());
 
 // Rutas de la aplicación
 app.use("/login", loginRoutes);
-
 app.use("/registro", registroRoutes);
 app.use("/principal", principalRoutes);
 app.use("/recipe", recipeRoutes);
-
 app.get('/index', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
+app.post('/logout', (req, res) => {
+  req.session.destroy((err) => {
+   
+    res.clearCookie('connect.sid'); // Borrar la cookie de sesión
+    res.redirect('/'); // Redirigir a la página de inicio o a donde prefieras
+  });
+});
 
 // Middleware para manejar rutas no encontradas (404)
 app.use((req, res) => {
-  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+  res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
 // Iniciar el servidor

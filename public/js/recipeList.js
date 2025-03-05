@@ -30,7 +30,9 @@ async function cargarRecetas(recipes = null) {
       "divide-y", 
       "divide-gray-200", 
       "min-w-full", 
-      "bg-white"
+      "bg-white",
+      "min-w-full",
+      "sm:text-sm"
     );
 
     // Crear encabezado de la tabla
@@ -60,7 +62,7 @@ async function cargarRecetas(recipes = null) {
         "bg-gray-100",
         "border-b",
         "border-gray-300"
-      ); // Agregar estilo al encabezado
+      ); 
 
       th.addEventListener("click", () => {
         ordenarTabla(index, recipes);
@@ -128,15 +130,19 @@ async function cargarRecetas(recipes = null) {
       tdSteps.classList.add(
         "px-6",
         "py-4",
-        "whitespace-nowrap",
         "text-sm",
-        "text-gray-500"
-      ); // Estilo de las celdas
+        "text-gray-500",
+        "break-words"  // Permite que el texto se divida en varias líneas
+      );
+      tdSteps.style.maxHeight = "4.5rem"; // Limita la altura de la celda
+      tdSteps.style.overflow = "hidden";  // Oculta el texto que excede la altura
+      tdSteps.style.textOverflow = "ellipsis"; // Muestra los puntos suspensivos al final
       row.appendChild(tdSteps);
 
       // Crear la celda de acciones con botones de eliminar y modificar
       const tdActions = document.createElement("td");
-      tdActions.classList.add("px-6", "py-4", "whitespace-nowrap");
+      tdActions.classList.add("px-6", "py-4", "whitespace-nowrap", "flex", "flex-col", "gap-2"); // Flexbox en columna, espacio entre los botones
+
 
       // Crear el botón de eliminar
       const deleteButton = document.createElement("button");
@@ -170,13 +176,13 @@ async function cargarRecetas(recipes = null) {
         }
       });
 
-      tdActions.appendChild(deleteButton);
+      
 
       // Crear el botón de modificar
       const editButton = document.createElement("button");
       editButton.textContent = "Modificar";
       editButton.classList.add(
-        "bg-yellow-500",
+        "bg-yellow-400",
         "text-white",
         "hover:bg-yellow-700",
         "px-4",
@@ -184,13 +190,14 @@ async function cargarRecetas(recipes = null) {
         "rounded",
         "focus:outline-none",
         "focus:ring-2",
-        "focus:ring-yellow-400"
+        "focus:ring-yellow-300"
       );
       editButton.onclick = function () {
         showEditar(recipe.recipe_id);
       };
-
+     
       tdActions.appendChild(editButton);
+      tdActions.appendChild(deleteButton);
       row.appendChild(tdActions);
 
       tbody.appendChild(row);

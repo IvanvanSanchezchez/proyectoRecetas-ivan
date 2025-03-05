@@ -1,5 +1,4 @@
 const Recipe = require("../models/recipe");
-
 exports.postRecipe = async (req, res) => {
   const {
     recipe_name,
@@ -12,9 +11,11 @@ exports.postRecipe = async (req, res) => {
   try {
     const existingRecipe = await Recipe.findOne({ where: { recipe_name } });
     if (existingRecipe) {
-      return res
-        .status(400)
-        .json({ message: "Esta receta ya está registrada." });
+      // Responde con código 200, pero con un mensaje de error
+      return res.status(200).json({ 
+        success: false, 
+        message: "Esta receta ya está registrada." 
+      });
     }
 
     const newRecipe = await Recipe.create({
@@ -25,12 +26,16 @@ exports.postRecipe = async (req, res) => {
       steps,
     });
 
-    return res
-      .status(201)
-      .json({ message: "Receta agregada exitosamente", recipe: newRecipe });
+    // Responde con código 200, pero con un mensaje de éxito
+    return res.status(200).json({ 
+      success: true, 
+      message: "Receta agregada exitosamente", 
+      recipe: newRecipe 
+    });
   } catch (error) {
     console.error("Error en el registro:", error);
-    res.status(500).json({ message: "Error en el servidor" });
+    // Si hay un error en el servidor, también responde con 200, pero con el error
+    res.status(200).json({ success: false, message: "Error en el servidor" });
   }
 };
 

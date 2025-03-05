@@ -121,9 +121,7 @@ function validarCrearReceta() {
 
   return valido;
 }
-
 function mostrarError(campo, mensaje) {
- 
   // Obtener el input
   const inputField = document.getElementById(campo);
 
@@ -135,16 +133,21 @@ function mostrarError(campo, mensaje) {
 
   // Crear el div del mensaje de error
   const errorDiv = document.createElement("div");
-  errorDiv.classList.add("error-message");
+  errorDiv.classList.add(
+    "error-message",
+    "text-red-500", // Color rojo para el mensaje de error
+    "text-sm", // Texto pequeño
+    "mt-1", // Margen superior pequeño
+    "font-medium", // Fuente en negrita
+    "italic" // Hacer el texto en cursiva para destacar el error
+  );
   errorDiv.textContent = mensaje;
-  errorDiv.style.color = "red";
-  errorDiv.style.fontSize = "0.9em";
-  errorDiv.style.marginTop = "5px";
 
   // Insertar el mensaje después del input
   inputField.after(errorDiv);
-  console.log(inputField);
+ 
 }
+
 
 function limpiarErrores() {
   document
@@ -160,3 +163,5 @@ function clearContent() {
     contentContainer.removeChild(contentContainer.firstChild);
   }
 }
+
+

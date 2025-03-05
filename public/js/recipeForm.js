@@ -18,7 +18,15 @@ function showAgregar() {
   // Crear un nuevo formulario dinámicamente
   const addRecipeForm = document.createElement("form");
   addRecipeForm.id = "recipeForm";
-  addRecipeForm.classList.add("space-y-4", "p-6", "max-w-2xl", "mx-auto", "bg-white", "rounded-lg", "shadow-md"); // Estilos del formulario
+  addRecipeForm.classList.add(
+    "space-y-4",
+    "p-6",
+    "max-w-2xl",
+    "mx-auto",
+    "bg-white",
+    "rounded-lg",
+    "shadow-md"
+  ); // Estilos del formulario
 
   // Crear el título
   const title = document.createElement("h2");
@@ -37,7 +45,18 @@ function showAgregar() {
   nameInput.setAttribute("id", "recipe_name");
   nameInput.setAttribute("name", "recipe_name");
   nameInput.required = true;
-  nameInput.classList.add("w-full", "px-4", "py-2", "border", "border-gray-300", "rounded-md", "focus:outline-none", "focus:ring-2", "focus:ring-blue-400", "focus:border-blue-400"); // Estilos del input
+  nameInput.classList.add(
+    "w-full",
+    "px-4",
+    "py-2",
+    "border",
+    "border-gray-300",
+    "rounded-md",
+    "focus:outline-none",
+    "focus:ring-2",
+    "focus:ring-blue-400",
+    "focus:border-blue-400"
+  ); // Estilos del input
   addRecipeForm.appendChild(nameInput);
 
   // Crear el campo de tipo de cocina
@@ -50,8 +69,19 @@ function showAgregar() {
   typeInput.setAttribute("type", "text");
   typeInput.setAttribute("id", "cuisine_type");
   typeInput.setAttribute("name", "cuisine_type");
-  typeInput.required = true;
-  typeInput.classList.add("w-full", "px-4", "py-2", "border", "border-gray-300", "rounded-md", "focus:outline-none", "focus:ring-2", "focus:ring-blue-400", "focus:border-blue-400");
+
+  typeInput.classList.add(
+    "w-full",
+    "px-4",
+    "py-2",
+    "border",
+    "border-gray-300",
+    "rounded-md",
+    "focus:outline-none",
+    "focus:ring-2",
+    "focus:ring-blue-400",
+    "focus:border-blue-400"
+  );
   addRecipeForm.appendChild(typeInput);
 
   // Crear el campo de nivel de dificultad
@@ -67,7 +97,18 @@ function showAgregar() {
   difficultyInput.setAttribute("min", "1");
   difficultyInput.setAttribute("max", "5");
   difficultyInput.required = true;
-  difficultyInput.classList.add("w-full", "px-4", "py-2", "border", "border-gray-300", "rounded-md", "focus:outline-none", "focus:ring-2", "focus:ring-blue-400", "focus:border-blue-400");
+  difficultyInput.classList.add(
+    "w-full",
+    "px-4",
+    "py-2",
+    "border",
+    "border-gray-300",
+    "rounded-md",
+    "focus:outline-none",
+    "focus:ring-2",
+    "focus:ring-blue-400",
+    "focus:border-blue-400"
+  );
   addRecipeForm.appendChild(difficultyInput);
 
   // Crear el campo de tiempo de preparación
@@ -80,7 +121,18 @@ function showAgregar() {
   timeInput.setAttribute("type", "number");
   timeInput.setAttribute("id", "preparation_time");
   timeInput.setAttribute("name", "preparation_time");
-  timeInput.classList.add("w-full", "px-4", "py-2", "border", "border-gray-300", "rounded-md", "focus:outline-none", "focus:ring-2", "focus:ring-blue-400", "focus:border-blue-400");
+  timeInput.classList.add(
+    "w-full",
+    "px-4",
+    "py-2",
+    "border",
+    "border-gray-300",
+    "rounded-md",
+    "focus:outline-none",
+    "focus:ring-2",
+    "focus:ring-blue-400",
+    "focus:border-blue-400"
+  );
   addRecipeForm.appendChild(timeInput);
 
   // Crear el campo de pasos
@@ -95,7 +147,18 @@ function showAgregar() {
   stepsTextarea.setAttribute("rows", "4");
   stepsTextarea.setAttribute("cols", "50");
   stepsTextarea.required = true;
-  stepsTextarea.classList.add("w-full", "px-4", "py-2", "border", "border-gray-300", "rounded-md", "focus:outline-none", "focus:ring-2", "focus:ring-blue-400", "focus:border-blue-400");
+  stepsTextarea.classList.add(
+    "w-full",
+    "px-4",
+    "py-2",
+    "border",
+    "border-gray-300",
+    "rounded-md",
+    "focus:outline-none",
+    "focus:ring-2",
+    "focus:ring-blue-400",
+    "focus:border-blue-400"
+  );
   addRecipeForm.appendChild(stepsTextarea);
 
   // Crear los botones de limpiar y enviar
@@ -103,13 +166,33 @@ function showAgregar() {
   clearButton.setAttribute("type", "button");
   clearButton.setAttribute("id", "clearCrearButton");
   clearButton.textContent = "Limpiar campos";
-  clearButton.classList.add("bg-gray-300", "text-gray-700", "hover:bg-gray-400", "px-4", "py-2", "rounded-md", "focus:outline-none", "focus:ring-2", "focus:ring-gray-500"); // Estilos del botón limpiar
+  clearButton.classList.add(
+    "bg-gray-300",
+    "text-gray-700",
+    "hover:bg-gray-400",
+    "px-4",
+    "py-2",
+    "rounded-md",
+    "focus:outline-none",
+    "focus:ring-2",
+    "focus:ring-gray-500"
+  ); // Estilos del botón limpiar
   addRecipeForm.appendChild(clearButton);
 
   const submitButton = document.createElement("button");
   submitButton.setAttribute("type", "submit");
   submitButton.textContent = "Añadir receta";
-  submitButton.classList.add("bg-blue-500", "text-white", "hover:bg-blue-700", "px-6", "py-2", "rounded-md", "focus:outline-none", "focus:ring-2", "focus:ring-blue-400"); // Estilos del botón de envío
+  submitButton.classList.add(
+    "bg-blue-500",
+    "text-white",
+    "hover:bg-blue-700",
+    "px-6",
+    "py-2",
+    "rounded-md",
+    "focus:outline-none",
+    "focus:ring-2",
+    "focus:ring-blue-400"
+  ); // Estilos del botón de envío
   addRecipeForm.appendChild(submitButton);
 
   // Agregar el formulario al contenedor del contenido
@@ -131,7 +214,6 @@ function showAgregar() {
       preparation_time: document.getElementById("preparation_time").value,
       steps: document.getElementById("steps").value,
     };
-
     try {
       const response = await fetch("/recipe/create", {
         method: "POST",
@@ -140,19 +222,23 @@ function showAgregar() {
         },
         body: JSON.stringify(recipeData),
       });
-
+    
       const data = await response.json();
-      if (response.ok) {
+    
+      if (data.success) {
+        // Si la respuesta fue exitosa, limpia los campos y recarga las recetas
         limpiarCrearCampos();
         cargarRecetas();
         showDialog("Receta agregada exitosamente");
       } else {
-        alert("Error: " + data.message);
+        // Si la respuesta no fue exitosa, muestra el mensaje de error
+        showDialog(data.message); // Mostrar el mensaje de error, como "Esta receta ya está registrada."
       }
     } catch (error) {
       console.error("Error al enviar la receta:", error);
-      showDialog("Hubo un problema con la solicitud");
+      showDialog("Hubo un problema con la solicitud.");
     }
+    
   });
 
   // Configurar el botón "Limpiar campos"
@@ -162,3 +248,25 @@ function showAgregar() {
 }
 
 document.getElementById("btnAgregar").addEventListener("click", showAgregar);
+
+document
+  .getElementById("logoutButton")
+  .addEventListener("click", async function () {
+    try {
+      const response = await fetch("/logout", {
+        method: "POST", // Hacer una solicitud POST para cerrar la sesión
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        // Redirigir a la página de inicio o donde quieras después de cerrar sesión
+        window.location.href = "/login";
+      } else {
+        console.error("Error al cerrar sesión.");
+      }
+    } catch (error) {
+      console.error("Error al realizar la petición de cerrar sesión:", error);
+    }
+  });
